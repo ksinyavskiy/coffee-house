@@ -1,0 +1,33 @@
+# Git folder #
+/.git/
+
+# Compilation folders #
+/bin/
+/target/
+/build/
+
+# Java compile files #
+*.class
+
+# Package files #
+*.jar
+*.war
+*.ear
+*.nar
+*.db
+
+# Log files #
+/*.log
+/*.log.*
+
+# Output folders #
+/test-output/
+##############################
+## IntelliJ
+##############################
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
