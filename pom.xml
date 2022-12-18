@@ -21,8 +21,10 @@
         <wsdl4j.version>1.6.2</wsdl4j.version>
 
         <spring.web.version>5.3.9</spring.web.version>
+        <spring.ws.version>3.1.2</spring.ws.version>
         <spring.ws.security.version>3.1.1</spring.ws.security.version>
         <hibernate.core.version>5.4.24.Final</hibernate.core.version>
+        <h2.version>2.1.210</h2.version>
 
     </properties>
 
@@ -34,6 +36,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+            <version>${spring.ws.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
             <artifactId>spring-ws-security</artifactId>
             <version>${spring.ws.security.version}</version>
         </dependency>
@@ -41,6 +48,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
 
         <dependency>
