@@ -11,7 +11,7 @@ public class UserDaoImpl implements UserDao {
     private static final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     @Override
-    public User getUserById(Integer userId) {
+    public User getUserById(int userId) {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         User user = session.find(User.class, userId);

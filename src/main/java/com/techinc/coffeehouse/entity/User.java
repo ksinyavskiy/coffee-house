@@ -16,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")
-    private Integer userId;
+    private int userId;
     @Column(name = "LOGIN", unique = true, nullable = false, length = 15)
     private String login;
     @Column(name = "PASSWORD", nullable = false, length = 20)
@@ -34,11 +34,11 @@ public class User {
 
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -101,7 +101,7 @@ public class User {
         }
 
         User other = (User) otherObj;
-        return Objects.equals(userId, other.getUserId()) &&
+        return userId == other.getUserId() &&
                 Objects.equals(login, other.getLogin()) &&
                 Objects.equals(password, other.getPassword()) &&
                 Objects.equals(firstName, other.getFirstName()) &&

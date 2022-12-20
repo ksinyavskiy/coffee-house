@@ -4,7 +4,7 @@
     <xs:element name="GetUserByIdRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="userId" type="xs:integer" />
+                <xs:element name="userId" type="xs:int" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -18,7 +18,7 @@
 
     <xs:complexType name="singleUser">
         <xs:sequence>
-            <xs:element name="userId" type="xs:integer" />
+            <xs:element name="userId" type="xs:int" />
             <xs:element name="login" type="xs:string" />
             <xs:element name="email" type="xs:string" />
         </xs:sequence>

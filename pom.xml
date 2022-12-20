@@ -25,6 +25,7 @@
         <spring.ws.security.version>3.1.1</spring.ws.security.version>
         <hibernate.core.version>5.4.24.Final</hibernate.core.version>
         <h2.version>2.1.210</h2.version>
+        <javax.servlet.version>4.0.4</javax.servlet.version>
 
     </properties>
 
@@ -76,38 +77,43 @@
             <artifactId>activation</artifactId>
             <version>${javax.activation.version}</version>
         </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${javax.servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>coffee-house</finalName>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven.compiler.plugin.version}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>jaxb2-maven-plugin</artifactId>
-                    <version>${jaxb2.maven.plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>xjc</id>
-                            <goals>
-                                <goal>xjc</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <sources>
-                            <source>${project.basedir}/src/main/resources/xsd</source>
-                        </sources>
-                        <packageName>com.techinc.coffeehouse.generated</packageName>
-                        <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
-                        <clearOutputDir>false</clearOutputDir>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <!-- Do not use <pluginManagement> tag, in such a case JAXB2 plugin is not invoked during the compile process -->
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>${jaxb2.maven.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${project.basedir}/src/main/resources/xsd</source>
+                    </sources>
+                    <packageName>com.techinc.coffeehouse.generated</packageName>
+                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
+                    <clearOutputDir>false</clearOutputDir>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>
