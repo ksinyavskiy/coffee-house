@@ -12,6 +12,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="user" type="{http://coffeehouse.com/users}userToOutput"/&gt;
+ *         &lt;element name="result" type="{http://coffeehouse.com/users}status"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +37,37 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "user"
+    "result"
 })
-@XmlRootElement(name = "GetUserByIdResponse")
-public class GetUserByIdResponse {
+@XmlRootElement(name = "AddUserResponse")
+public class AddUserResponse {
 
     @XmlElement(required = true)
-    protected UserToOutput user;
+    @XmlSchemaType(name = "string")
+    protected Status result;
 
     /**
-     * Gets the value of the user property.
+     * Gets the value of the result property.
      * 
      * @return
      *     possible object is
-     *     {@link UserToOutput }
+     *     {@link Status }
      *     
      */
-    public UserToOutput getUser() {
-        return user;
+    public Status getResult() {
+        return result;
     }
 
     /**
-     * Sets the value of the user property.
+     * Sets the value of the result property.
      * 
      * @param value
      *     allowed object is
-     *     {@link UserToOutput }
+     *     {@link Status }
      *     
      */
-    public void setUser(UserToOutput value) {
-        this.user = value;
+    public void setResult(Status value) {
+        this.result = value;
     }
 
 }

@@ -1,1 +1,1 @@
-INSERT INTO `user`(USER_ID, LOGIN, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL, BIRTH_DATE) VALUES (1, 'john12', 'pass123', 'John', 'Malkovich', 'john.malkovich@gmail.com', '1998-05-06');
+INSERT INTO `user`(LOGIN, PASSWORD, FIRST_NAME, LAST_NAME, EMAIL, BIRTH_DATE) VALUES ('john12', 'pass123', 'John', 'Malkovich', 'john.malkovich@gmail.com', '1998-05-06');

@@ -11,16 +11,41 @@
     <xs:element name="GetUserByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="singleUser" />
+                <xs:element name="user" type="userToOutput" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AddUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="login" type="xs:string" />
+                <xs:element name="password" type="xs:string" />
+                <xs:element name="firstName" type="xs:string" />
+                <xs:element name="lastName" type="xs:string" />
+                <xs:element name="email" type="xs:string" />
+                <xs:element name="birthDate" type="xs:date" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="AddUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="status" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="singleUser">
+    <xs:complexType name="userToOutput">
         <xs:sequence>
             <xs:element name="userId" type="xs:int" />
             <xs:element name="login" type="xs:string" />
             <xs:element name="email" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
+    <xs:simpleType name="status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OK" />
+            <xs:enumeration value="FAILURE" />
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>

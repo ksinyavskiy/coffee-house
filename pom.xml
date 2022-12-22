@@ -23,7 +23,9 @@
         <spring.web.version>5.3.9</spring.web.version>
         <spring.ws.version>3.1.2</spring.ws.version>
         <spring.ws.security.version>3.1.1</spring.ws.security.version>
+        <spring.orm.version>5.2.20.RELEASE</spring.orm.version>
         <hibernate.core.version>5.4.24.Final</hibernate.core.version>
+        <hibernate.c3p0.version>5.4.24.Final</hibernate.c3p0.version>
         <h2.version>2.1.210</h2.version>
         <javax.servlet.version>4.0.4</javax.servlet.version>
 
@@ -46,9 +48,25 @@
             <version>${spring.ws.security.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.orm.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>${hibernate.c3p0.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.5</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
