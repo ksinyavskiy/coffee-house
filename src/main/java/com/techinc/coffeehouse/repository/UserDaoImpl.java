@@ -1,7 +1,7 @@
 package com.techinc.coffeehouse.repository;
 
 import com.techinc.coffeehouse.entity.User;
-import java.io.Serializable;
+import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +35,27 @@ public class UserDaoImpl implements UserDao {
         session.persist(user);
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public void removeUserById(int userId) {
+        User user = getUserById(userId);
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.remove(user);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<User> users = session.createQuery("from User").list();
+        session.getTransaction().commit();
+        session.close();
+
+        return users;
     }
 }

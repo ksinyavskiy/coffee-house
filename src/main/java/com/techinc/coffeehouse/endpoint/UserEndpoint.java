@@ -3,12 +3,17 @@ package com.techinc.coffeehouse.endpoint;
 import com.techinc.coffeehouse.entity.User;
 import com.techinc.coffeehouse.generated.AddUserRequest;
 import com.techinc.coffeehouse.generated.AddUserResponse;
+import com.techinc.coffeehouse.generated.DeleteUserRequest;
+import com.techinc.coffeehouse.generated.DeleteUserResponse;
+import com.techinc.coffeehouse.generated.GetAllUsersResponse;
 import com.techinc.coffeehouse.generated.GetUserByIdRequest;
 import com.techinc.coffeehouse.generated.GetUserByIdResponse;
 import com.techinc.coffeehouse.generated.Status;
 import com.techinc.coffeehouse.generated.UserToOutput;
 import com.techinc.coffeehouse.service.UserService;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -32,9 +37,9 @@ public class UserEndpoint {
     public GetUserByIdResponse getSpecifiedUser(@RequestPayload GetUserByIdRequest request) {
         User user = userService.getUserById(request.getUserId());
 
-        UserToOutput singleUser = wrapUserForOutput(user);
+        UserToOutput userToOutput = wrapUserForOutput(user);
         GetUserByIdResponse response = new GetUserByIdResponse();
-        response.setUser(singleUser);
+        response.setUserToOutput(userToOutput);
 
         return response;
     }
@@ -48,6 +53,30 @@ public class UserEndpoint {
 
         AddUserResponse response = new AddUserResponse();
         response.setResult(Status.OK);
+
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE, localPart = "DeleteUserRequest")
+    @ResponsePayload
+    public DeleteUserResponse removeUser(@RequestPayload DeleteUserRequest request) {
+        userService.removeUser(request.getUserId());
+
+        DeleteUserResponse response = new DeleteUserResponse();
+        response.setResult(Status.OK);
+
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE, localPart = "GetAllUsersRequest")
+    @ResponsePayload
+    public GetAllUsersResponse getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserToOutput> userToOutputs = users.stream()
+                                                .map(this::wrapUserForOutput)
+                                                .collect(Collectors.toList());
+        GetAllUsersResponse response = new GetAllUsersResponse();
+        response.getUserToOutput().addAll(userToOutputs);
 
         return response;
     }

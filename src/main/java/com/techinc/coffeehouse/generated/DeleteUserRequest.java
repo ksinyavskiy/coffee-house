@@ -10,9 +10,7 @@ package com.techinc.coffeehouse.generated;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -26,7 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="result" type="{http://coffeehouse.com/users}status"/&gt;
+ *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,37 +35,27 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "result"
+    "userId"
 })
-@XmlRootElement(name = "AddUserResponse")
-public class AddUserResponse {
+@XmlRootElement(name = "DeleteUserRequest")
+public class DeleteUserRequest {
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected Status result;
+    protected int userId;
 
     /**
-     * Gets the value of the result property.
+     * Gets the value of the userId property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Status }
-     *     
      */
-    public Status getResult() {
-        return result;
+    public int getUserId() {
+        return userId;
     }
 
     /**
-     * Sets the value of the result property.
+     * Sets the value of the userId property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Status }
-     *     
      */
-    public void setResult(Status value) {
-        this.result = value;
+    public void setUserId(int value) {
+        this.userId = value;
     }
 
 }

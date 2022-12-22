@@ -39,8 +39,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "result"
 })
-@XmlRootElement(name = "AddUserResponse")
-public class AddUserResponse {
+@XmlRootElement(name = "DeleteUserResponse")
+public class DeleteUserResponse {
 
     @XmlElement(required = true)
     @XmlSchemaType(name = "string")

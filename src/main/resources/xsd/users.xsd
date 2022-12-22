@@ -11,7 +11,7 @@
     <xs:element name="GetUserByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="userToOutput" />
+                <xs:element ref="userToOutput" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -34,14 +34,41 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
+    <xs:element name="DeleteUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="DeleteUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="result" type="status" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUsersRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="GetAllUsersResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="userToOutput" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
-    <xs:complexType name="userToOutput">
+    <xs:element name="userToOutput">
+    <xs:complexType>
         <xs:sequence>
             <xs:element name="userId" type="xs:int" />
             <xs:element name="login" type="xs:string" />
             <xs:element name="email" type="xs:string" />
         </xs:sequence>
     </xs:complexType>
+    </xs:element>
     <xs:simpleType name="status">
         <xs:restriction base="xs:string">
             <xs:enumeration value="OK" />

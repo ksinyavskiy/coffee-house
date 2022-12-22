@@ -8,11 +8,11 @@
 
 package com.techinc.coffeehouse.generated;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="result" type="{http://coffeehouse.com/users}status"/&gt;
+ *         &lt;element ref="{http://coffeehouse.com/users}userToOutput" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,37 +37,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "result"
+    "userToOutput"
 })
-@XmlRootElement(name = "AddUserResponse")
-public class AddUserResponse {
+@XmlRootElement(name = "GetAllUsersResponse")
+public class GetAllUsersResponse {
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected Status result;
+    protected List<UserToOutput> userToOutput;
 
     /**
-     * Gets the value of the result property.
+     * Gets the value of the userToOutput property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Status }
-     *     
-     */
-    public Status getResult() {
-        return result;
-    }
-
-    /**
-     * Sets the value of the result property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the userToOutput property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Status }
-     *     
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getUserToOutput().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link UserToOutput }
+     * 
+     * 
      */
-    public void setResult(Status value) {
-        this.result = value;
+    public List<UserToOutput> getUserToOutput() {
+        if (userToOutput == null) {
+            userToOutput = new ArrayList<UserToOutput>();
+        }
+        return this.userToOutput;
     }
 
 }
