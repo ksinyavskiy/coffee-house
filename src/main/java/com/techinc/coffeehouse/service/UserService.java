@@ -1,14 +1,38 @@
 package com.techinc.coffeehouse.service;
 
 import com.techinc.coffeehouse.entity.User;
+import com.techinc.coffeehouse.exception.UserNotFoundException;
+import com.techinc.coffeehouse.repository.UserDao;
 import java.util.List;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface UserService {
-    User getUserById(int userId);
+@Service
+@Transactional
+public class UserService {
+    private final UserDao userDao;
 
-    void addUser(User user);
+    @Autowired
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
-    void removeUser(int userId);
+    public User getUser(int userId) {
+        Optional<User> optUser = userDao.getById(userId);
+        return optUser.orElseThrow(() -> new UserNotFoundException("User with id " + userId + " does not exist"));
+    }
 
-    List<User> getAllUsers();
+    public void addUser(User user) {
+        userDao.add(user);
+    }
+
+    public void removeUser(User user) {
+        userDao.remove(user);
+    }
+
+    public List<User> getAllUsers() {
+        return userDao.getAll();
+    }
 }

@@ -1,15 +1,20 @@
 package com.techinc.coffeehouse.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.techinc.coffeehouse.entity.Milk;
 import com.techinc.coffeehouse.entity.User;
 import java.beans.PropertyVetoException;
+import java.util.Objects;
 import java.util.Properties;
+import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
@@ -17,6 +22,7 @@ import org.springframework.xml.xsd.XsdSchema;
 
 @EnableWs
 @Configuration
+@EnableTransactionManagement
 @ComponentScan("com.techinc.coffeehouse")
 public class CoffeeHouseConfig {
     // MODE=LEGACY for allowing H2 to auto generate ID auto increment
@@ -56,16 +62,24 @@ public class CoffeeHouseConfig {
     public LocalSessionFactoryBean sessionFactory() throws PropertyVetoException {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource());
-        localSessionFactoryBean.setAnnotatedClasses(User.class);
+
+        localSessionFactoryBean.setAnnotatedClasses(User.class, Milk.class);
 
         Properties h2DbProperties = new Properties();
         h2DbProperties.put(Environment.DIALECT, "org.hibernate.dialect.H2Dialect");
-        h2DbProperties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+        // do not use this property while using @Transactional annotation from Spring
+        // h2DbProperties.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
         h2DbProperties.put(Environment.SHOW_SQL, "true");
         h2DbProperties.put(Environment.HBM2DDL_AUTO, "create-drop");
 
         localSessionFactoryBean.setHibernateProperties(h2DbProperties);
 
         return localSessionFactoryBean;
+    }
+
+    @Bean
+    public HibernateTransactionManager transactionManager() throws PropertyVetoException {
+        SessionFactory sessionFactory = Objects.requireNonNull(sessionFactory().getObject());
+        return new HibernateTransactionManager(sessionFactory);
     }
 }

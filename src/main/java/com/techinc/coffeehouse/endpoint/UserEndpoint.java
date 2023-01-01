@@ -35,7 +35,7 @@ public class UserEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "GetUserByIdRequest")
     @ResponsePayload
     public GetUserByIdResponse getSpecifiedUser(@RequestPayload GetUserByIdRequest request) {
-        User user = userService.getUserById(request.getUserId());
+        User user = userService.getUser(request.getUserId());
 
         UserToOutput userToOutput = wrapUserForOutput(user);
         GetUserByIdResponse response = new GetUserByIdResponse();
@@ -60,7 +60,9 @@ public class UserEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "DeleteUserRequest")
     @ResponsePayload
     public DeleteUserResponse removeUser(@RequestPayload DeleteUserRequest request) {
-        userService.removeUser(request.getUserId());
+        User user = userService.getUser(request.getUserId());
+
+        userService.removeUser(user);
 
         DeleteUserResponse response = new DeleteUserResponse();
         response.setResult(Status.OK);
