@@ -9,12 +9,11 @@ import com.techinc.coffeehouse.generated.GetAllUsersResponse;
 import com.techinc.coffeehouse.generated.GetUserByIdRequest;
 import com.techinc.coffeehouse.generated.GetUserByIdResponse;
 import com.techinc.coffeehouse.generated.Status;
-import com.techinc.coffeehouse.generated.UserToOutput;
+import com.techinc.coffeehouse.generated.UserResponse;
 import com.techinc.coffeehouse.service.UserService;
-import java.time.LocalDate;
+import com.techinc.coffeehouse.util.UserMapper;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.xml.datatype.XMLGregorianCalendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -37,9 +36,9 @@ public class UserEndpoint {
     public GetUserByIdResponse getSpecifiedUser(@RequestPayload GetUserByIdRequest request) {
         User user = userService.getUser(request.getUserId());
 
-        UserToOutput userToOutput = wrapUserForOutput(user);
+        UserResponse userResponse = UserMapper.wrapUserForOutput(user);
         GetUserByIdResponse response = new GetUserByIdResponse();
-        response.setUserToOutput(userToOutput);
+        response.setUserResponse(userResponse);
 
         return response;
     }
@@ -47,7 +46,7 @@ public class UserEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "AddUserRequest")
     @ResponsePayload
     public AddUserResponse addUser(@RequestPayload AddUserRequest request) {
-        User user = mapToJpaUser(request);
+        User user = UserMapper.mapToJpaUser(request);
 
         userService.addUser(user);
 
@@ -74,37 +73,12 @@ public class UserEndpoint {
     @ResponsePayload
     public GetAllUsersResponse getAllUsers() {
         List<User> users = userService.getAllUsers();
-        List<UserToOutput> userToOutputs = users.stream()
-                                                .map(this::wrapUserForOutput)
+        List<UserResponse> userToOutputs = users.stream()
+                                                .map(UserMapper::wrapUserForOutput)
                                                 .collect(Collectors.toList());
         GetAllUsersResponse response = new GetAllUsersResponse();
-        response.getUserToOutput().addAll(userToOutputs);
+        response.getUserResponse().addAll(userToOutputs);
 
         return response;
-    }
-
-    private User mapToJpaUser(AddUserRequest request) {
-        User user = new User();
-        user.setLogin(request.getLogin());
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setEmail(request.getEmail());
-
-        XMLGregorianCalendar userDetailsBirthDate = request.getBirthDate();
-        LocalDate userBirthDate = LocalDate.of(userDetailsBirthDate.getYear(),
-                                               userDetailsBirthDate.getMonth(),
-                                               userDetailsBirthDate.getDay());
-        user.setBirthDate(userBirthDate);
-        return user;
-    }
-
-    private UserToOutput wrapUserForOutput(User user) {
-        UserToOutput userToOutput = new UserToOutput();
-        userToOutput.setUserId(user.getUserId());
-        userToOutput.setLogin(user.getLogin());
-        userToOutput.setEmail(user.getEmail());
-
-        return userToOutput;
     }
 }

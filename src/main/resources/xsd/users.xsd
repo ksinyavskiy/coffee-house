@@ -11,7 +11,7 @@
     <xs:element name="GetUserByIdResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="userToOutput" />
+                <xs:element ref="userResponse" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -55,12 +55,12 @@
     <xs:element name="GetAllUsersResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="userToOutput" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="userResponse" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="userToOutput">
+    <xs:element name="userResponse">
     <xs:complexType>
         <xs:sequence>
             <xs:element name="userId" type="xs:int" />

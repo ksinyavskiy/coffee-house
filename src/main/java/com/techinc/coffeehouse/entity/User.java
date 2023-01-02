@@ -1,5 +1,6 @@
 package com.techinc.coffeehouse.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
@@ -12,7 +13,8 @@ import javax.persistence.Table;
 @Entity
 // user is the reserved keyword in H2 DB, so it is needed to escape it with ``
 @Table(name = "`user`")
-public class User {
+public class User implements Serializable {
+    private static final Long serialVersionUUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "USER_ID")

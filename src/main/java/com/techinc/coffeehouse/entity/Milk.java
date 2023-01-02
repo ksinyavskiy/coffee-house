@@ -1,5 +1,6 @@
 package com.techinc.coffeehouse.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "milk")
-public class Milk {
+public class Milk implements Serializable {
+    private static final Long serialVersionUUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MILK_ID")

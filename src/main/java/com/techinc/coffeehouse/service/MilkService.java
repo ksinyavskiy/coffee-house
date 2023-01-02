@@ -21,19 +21,19 @@ public class MilkService {
     }
 
     public Milk getMilkById(int milkId) {
-        Optional<Milk> optMilk = milkDao.getById(milkId);
+        Optional<Milk> optMilk = milkDao.getEntityById(milkId);
         return optMilk.orElseThrow(() -> new MilkNotFoundException("Milk with id " + milkId + " does not exist"));
     }
 
     public void addMilk(Milk milk) {
-        milkDao.add(milk);
+        milkDao.addEntity(milk);
     }
 
     public void removeMilk(Milk milk) {
-        milkDao.remove(milk);
+        milkDao.removeEntity(milk);
     }
 
     public List<Milk> getMilks() {
-        return milkDao.getAll();
+        return milkDao.getAllEntities();
     }
 }

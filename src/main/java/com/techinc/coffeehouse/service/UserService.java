@@ -20,19 +20,19 @@ public class UserService {
     }
 
     public User getUser(int userId) {
-        Optional<User> optUser = userDao.getById(userId);
+        Optional<User> optUser = userDao.getEntityById(userId);
         return optUser.orElseThrow(() -> new UserNotFoundException("User with id " + userId + " does not exist"));
     }
 
     public void addUser(User user) {
-        userDao.add(user);
+        userDao.addEntity(user);
     }
 
     public void removeUser(User user) {
-        userDao.remove(user);
+        userDao.removeEntity(user);
     }
 
     public List<User> getAllUsers() {
-        return userDao.getAll();
+        return userDao.getAllEntities();
     }
 }

@@ -1,6 +1,7 @@
 package com.techinc.coffeehouse.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import com.techinc.coffeehouse.entity.CoffeeBean;
 import com.techinc.coffeehouse.entity.Milk;
 import com.techinc.coffeehouse.entity.User;
 import java.beans.PropertyVetoException;
@@ -63,7 +64,7 @@ public class CoffeeHouseConfig {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource());
 
-        localSessionFactoryBean.setAnnotatedClasses(User.class, Milk.class);
+        localSessionFactoryBean.setAnnotatedClasses(User.class, Milk.class, CoffeeBean.class);
 
         Properties h2DbProperties = new Properties();
         h2DbProperties.put(Environment.DIALECT, "org.hibernate.dialect.H2Dialect");
